@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+
+h2 {
+    position: relative;
+    top: 50px;
+    text-align: center;
+}
+
+.input-group {
+    top: 100px;
+    width: 600px;
+    margin-top: 25px;
+}
+
+.back-button {
+    position: relative;
+    top: 100px;
+    left: 0;
+}
+
+.alert {
+    margin-top: 10px;
+    width: 600px;
+}

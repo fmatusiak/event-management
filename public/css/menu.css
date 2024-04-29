@@ -1,0 +1,15 @@
+nav {
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    height: 100vh;
+}
+
+.nav-link {
+    color: black;
+}
+
+.nav-item {
+    position: relative;
+    top: 50px;
+    padding: 5px 5px;
+}
