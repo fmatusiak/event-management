@@ -14,6 +14,11 @@ class PackageSeeder extends Seeder
     {
         $packages = [
             [
+                'name' => '1 godzinny',
+                'rental_time' => 60,
+                'price' => 599
+            ],
+            [
                 'name' => '2 godzinny',
                 'rental_time' => 120,
                 'price' => 899

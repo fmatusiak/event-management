@@ -42,5 +42,10 @@ h2 {
 
 .create-button {
     position: relative;
-    top: 180px;
+    top: 190px;
 }
+
+.btn {
+    margin: 5px 5px;
+}
+

@@ -11,5 +11,6 @@ return [
     'error_retrieve' => 'Wystąpił błąd podczas pobierania!',
     'error_delete' => 'Wystąpił błąd podczas usuwania!',
     'not_found' => 'Nie znaleziono!',
+    'confirm_delete' => 'Czy na pewno chcesz usunąć?',
 ];
 

@@ -16,7 +16,7 @@
     <div class="row">
         @include('components.menu')
 
-        <main class="col-md-10 col-lg-10 ms-sm-auto px-md-4">
+        <main class="col-md-10 ms-sm-auto px-md-4">
             <h2>{{__('translations.edit_package')}}</h2>
 
             <div class="back-button">
@@ -72,7 +72,7 @@
                 </div>
 
                 @if(session('error') || session('exception_message') || session('status'))
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3 w-75">
                         @if(session('error'))
                             <div class="alert alert-danger" role="alert">
                                 {{ session('error') }}
@@ -93,7 +93,7 @@
                     </div>
                 @endif
 
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 ">
                     <button type="submit" class="btn btn-success">{{__('translations.update')}}</button>
                 </div>
 

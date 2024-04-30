@@ -11,6 +11,7 @@ return [
     'error_retrieve' => 'An error occurred while retrieving!',
     'error_delete' => 'An error occurred while deleting!',
     'not_found' => 'Not found!',
+    'confirm_delete' => 'Are you sure you want to delete?',
 ];
 
 
