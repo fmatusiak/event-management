@@ -2,9 +2,11 @@
 
 namespace App\Repositories;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 interface BasicRepositoryInterface
 {
-    public function paginate(array $filters = [], int $perPage = 15, array $columns = ['*']);
+    public function paginate(array $filters = [], int $perPage = 15, array $columns = ['*']): LengthAwarePaginator;
 
     public function create(array $data);
 
