@@ -10,8 +10,10 @@ return [
     'error_update' => 'An error occurred while updating!',
     'error_retrieve' => 'An error occurred while retrieving!',
     'error_delete' => 'An error occurred while deleting!',
+    'error_parse_date' => 'Unable to parse the date',
     'not_found' => 'Not found!',
     'confirm_delete' => 'Are you sure you want to delete?',
+    'events_overlap' => 'There are already events between the given times.',
 ];
 
 
