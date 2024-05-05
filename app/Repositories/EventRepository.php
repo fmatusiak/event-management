@@ -29,6 +29,8 @@ class EventRepository extends BasicRepository implements BasicRepositoryInterfac
             $query = $query->where("end_time", "<=", $endTime);
         }
 
+        $query = $query->orderBy('start_time');
+
         return $query->paginate($perPage, $columns);
     }
 }

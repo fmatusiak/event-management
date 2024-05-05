@@ -34,7 +34,7 @@ class PackageController extends Controller
 
             return view('packages.index', ['paginator' => $paginator]);
         } catch (Exception) {
-            return view('packages.index', ['error' => __('messages.package.error_pagination')]);
+            return view('packages.index', ['error' => __('messages.error_pagination')]);
         }
     }
 
@@ -45,7 +45,7 @@ class PackageController extends Controller
 
             return redirect()->route('packages.create')->with('status', __('messages.created') . " " . $package->getName());
         } catch (Exception) {
-            return back()->withInput()->with('error', __('messages.package.error_create'));
+            return back()->withInput()->with('error', __('messages.error_create'));
         }
     }
 

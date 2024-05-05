@@ -16,7 +16,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
-class EventService
+class EventService implements EventServiceInterface
 {
     private EventRepository $eventRepository;
     private ClientRepository $clientRepository;
@@ -56,7 +56,7 @@ class EventService
      * @throws EventsOverlapException
      * @throws Exception
      */
-    private function validateEventRange(array $data): void
+    public function validateEventRange(array $data): void
     {
         $startTime = DateParser::parse(Arr::get($data, 'start_time'));
         $endTime = DateParser::parse(Arr::get($data, 'end_time'));
@@ -69,7 +69,7 @@ class EventService
         }
     }
 
-    private function checkAvailableEventRange(Carbon $StartTime, Carbon $endTime, int $additionalHours = 2, int $eventId = null): bool
+    public function checkAvailableEventRange(Carbon $StartTime, Carbon $endTime, int $additionalHours = 2, int $eventId = null): bool
     {
         $adjustedStartTime = $StartTime->subHours($additionalHours);
         $adjustedEndTime = $endTime->addHours($additionalHours);
