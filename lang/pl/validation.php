@@ -188,6 +188,16 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'start_time' => __('translations.start_time'),
+        'end_time' => __('translations.end_time'),
+        'event_name' => __('translations.event_name'),
+        'note' => __('translations.note'),
+        'name' => __('translations.name'),
+        'gmail_sync' => __('translations.gmail_sync'),
+        'street' => __('translations.street'),
+        'city' => __('translations.city'),
+        'postcode' => __('translations.postcode'),
+    ],
 
 ];

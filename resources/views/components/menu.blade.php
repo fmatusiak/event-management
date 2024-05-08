@@ -1,7 +1,7 @@
 <nav class="col-md-2 d-none d-md-block sidebar">
     <ul class="nav flex-column sidebar">
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{route('events.index')}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                      class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-clock mr-2">

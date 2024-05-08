@@ -25,8 +25,8 @@ class CreateEventsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
-            $table->foreign('client_address_id')->references('id')->on('addresses')->onDelete('cascade');;
-            $table->foreign('delivery_address_id')->references('id')->on('addresses')->onDelete('cascade');;
+            $table->foreign('client_address_id')->references('id')->on('addresses')->onDelete('cascade');
+            $table->foreign('delivery_address_id')->references('id')->on('addresses')->onDelete('cascade');
         });
     }
 

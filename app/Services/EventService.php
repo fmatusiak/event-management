@@ -56,14 +56,14 @@ class EventService implements EventServiceInterface
      * @throws EventsOverlapException
      * @throws Exception
      */
-    public function validateEventRange(array $data): void
+    public function validateEventRange(array $data, int $eventId = null): void
     {
         $startTime = DateParser::parse(Arr::get($data, 'start_time'));
         $endTime = DateParser::parse(Arr::get($data, 'end_time'));
         $additionalHours = Config::get('event.additional_hours');
 
         if (isset($startTime, $endTime)) {
-            if (!$this->checkAvailableEventRange($startTime, $endTime, $additionalHours)) {
+            if (!$this->checkAvailableEventRange($startTime, $endTime, $additionalHours, $eventId)) {
                 throw new EventsOverlapException(__('messages.events_overlap'));
             }
         }
@@ -142,7 +142,7 @@ class EventService implements EventServiceInterface
      */
     public function updateEvent(int $eventId, array $data)
     {
-        $this->validateEventRange($data);
+        $this->validateEventRange($data, $eventId);
 
         try {
             DB::beginTransaction();

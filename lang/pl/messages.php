@@ -14,5 +14,7 @@ return [
     'not_found' => 'Nie znaleziono!',
     'confirm_delete' => 'Czy na pewno chcesz usunąć?',
     'events_overlap' => 'Pomiędzy podanymi czasami już istnieją inne wydarzenia',
+    'error_search_clients_by_keywords' => 'Wystąpił błąd podczas wyszukiwania klientów na podstawie słów kluczowych',
+    'error_search_addresses_by_keywords' => 'Wystąpił błąd podczas wyszukiwania adresów na podstawie słów kluczowych',
 ];
 

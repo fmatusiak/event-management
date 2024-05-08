@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="{{app()->getLocale()}}">
 <head>
-    <title>{{__('translations.packages')}}</title>
+    <title>{{__('translations.events')}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -15,7 +15,7 @@
 <body>
 
 <script>
-    function deletePackage(packageId) {
+    function deleteEvent(eventId) {
         let confirmation = confirm("{{__('messages.confirm_delete')}}");
 
         if (confirmation) {
@@ -23,7 +23,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "/packages/" + packageId,
+                url: "/events/" + eventId,
                 type: 'DELETE',
                 success: function (response) {
                     if (response.error) {
@@ -45,19 +45,23 @@
         @include('components.menu')
 
         <main class="main col-md-10 ms-sm-auto col-lg-10 px-md-4">
-            <h2>{{__('translations.packages')}}</h2>
+            <h2>{{__('translations.events')}}</h2>
 
             <a class="create-button btn btn-success" type="button"
-               href="{{route('packages.create')}}">{{__('translations.add')}}</a>
+               href="{{route('events.create')}}">{{__('translations.add')}}</a>
 
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">{{__('translations.name')}}</th>
-                        <th scope="col">{{__('translations.rental_time')}}</th>
+                        <th scope="col">{{__('translations.event_name')}}</th>
+                        <th scope="col">{{__('translations.client')}}</th>
+                        <th scope="col">{{__('translations.delivery_address')}}</th>
+                        <th scope="col">{{__('translations.start_time')}}</th>
+                        <th scope="col">{{__('translations.end_time')}}</th>
                         <th scope="col">{{__('translations.price')}}</th>
+                        <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -65,15 +69,18 @@
                     @foreach($paginator as $item)
                         <tr>
                             <th scope="row">{{ $item->id }}</th>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->rental_time }}</td>
-                            <td>{{ $item->price }}</td>
+                            <td>{{ $item->event_name}}</td>
+                            <td>{{ $item->client->first_name}} {{ $item->client->last_name}}</td>
+                            <td>{{ $item->deliveryAddress->street}} {{$item->deliveryAddress->city}}</td>
+                            <td>{{ $item->start_time}}</td>
+                            <td>{{ $item->end_time}}</td>
+                            <td></td>
                             <td>
                                 <a class="btn btn-primary" role="button"
-                                   href="{{ route('packages.edit',['packageId' => $item->id]) }}">{{__('translations.edit')}}</a>
+                                   href="{{ route('events.edit',['eventId' => $item->id]) }}">{{__('translations.edit')}}</a>
                                 <a type="submit" class="btn btn-danger"
                                    role="button"
-                                   onClick="deletePackage({{$item->id}})">{{__('translations.delete')}}</a>
+                                   onClick="deleteEvent({{$item->id}})">{{__('translations.delete')}}</a>
                             </td>
                         </tr>
                     @endforeach

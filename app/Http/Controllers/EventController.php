@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\EventsOverlapException;
-use App\Http\Requests\CreateEventRequest;
-use App\Http\Requests\UpdateEventRequest;
 use App\Repositories\EventRepository;
 use App\Services\EventService;
 use Exception;
@@ -18,8 +16,8 @@ use Illuminate\View\View;
 
 class EventController extends Controller
 {
-    private EventService $eventService;
-    private EventRepository $eventRepository;
+    protected EventService $eventService;
+    protected EventRepository $eventRepository;
 
     public function __construct(EventService $eventService, EventRepository $eventRepository)
     {
@@ -42,7 +40,7 @@ class EventController extends Controller
         }
     }
 
-    public function storeEvent(CreateEventRequest $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
+    public function storeEvent(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         try {
             $event = $this->eventService->createEvent($request->all());
@@ -50,7 +48,7 @@ class EventController extends Controller
             return redirect()->route('events.create')->with('status', __('messages.created') . " " . $event->getEventName());
         } catch (EventsOverlapException) {
             return back()->withInput()->with('error', __('messages.events_overlap'));
-        } catch (Exception) {
+        } catch (Exception $e) {
             return back()->withInput()->with('error', __('messages.error_create'));
         }
     }
@@ -60,7 +58,7 @@ class EventController extends Controller
         return view('events.create');
     }
 
-    public function updateEvent(int $eventId, UpdateEventRequest $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
+    public function updateEvent(int $eventId, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         try {
             $this->eventService->updateEvent($eventId, $request->all());

@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
             $table->string('last_name');
             $table->string('pesel')->nullable()->unique();
             $table->string('email')->unique();
-            $table->string('phone')->nullable();
+            $table->string('phone');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,4 +32,3 @@ class CreateClientsTable extends Migration
     }
 }
 
-;
