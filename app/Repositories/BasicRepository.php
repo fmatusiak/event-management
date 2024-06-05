@@ -34,4 +34,8 @@ class BasicRepository
         $model = $this->get($id);
         return $model->delete();
     }
+
+    public function updateOrCreate(array $attributes, array $values = []){
+        return $this->model::updateOrCreate($attributes, $values);
+    }
 }

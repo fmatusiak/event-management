@@ -14,6 +14,7 @@ return [
     'not_found' => 'Not found!',
     'confirm_delete' => 'Are you sure you want to delete?',
     'events_overlap' => 'There are already events between the given times.',
+    "error_negative_cost" => "Cost cannot be negative"
 ];
 
 

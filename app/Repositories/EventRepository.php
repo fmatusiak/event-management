@@ -31,7 +31,7 @@ class EventRepository extends BasicRepository implements BasicRepositoryInterfac
 
         $query = $query->orderBy('start_time');
 
-        $query = $query->with('client', 'clientAddress', 'deliveryAddress');
+        $query = $query->with(['client', 'clientAddress', 'deliveryAddress']);
 
         return $query->paginate($perPage, $columns);
     }

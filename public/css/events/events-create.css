@@ -41,3 +41,12 @@ h2 {
     top: 120px;
     left: 0;
 }
+
+.input-group.price {
+    display: flex;
+    align-items: center;
+}
+
+.price-title {
+    margin: 0;
+}

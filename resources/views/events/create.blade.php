@@ -82,6 +82,67 @@
                             @enderror
                         </div>
 
+                        <div class="input-group price">
+                            <h3 class="price-title">{{__('translations.prices')}}</h3>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.package')}}</span>
+                            <select name="cost[package_id]" class="form-select" aria-label="Default select example">
+                                @foreach($packages as $package)
+                                    <option
+                                        value='{{ $package->id }}' {{ old('cost.package_id') == $package->id ? 'selected' : '' }}>
+                                        {{ $package->getName() }} [ {{ __('translations.price') }}
+                                        : {{ $package->getPrice() }} ]
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @error('cost.package_id')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
+
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.transport_price')}}</span>
+                            <input name="cost[transport_price]" type="number"
+                                   value="{{old('cost.transport_price') ?? 0}}" step="any" class="form-control"
+                                   aria-label={{__('translations.transport_price')}}
+                                   aria-describedby="inputGroup-sizing-default" required>
+
+                            @error('cost.transport_price')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.addons_price')}}</span>
+                            <input name="package[addons_price]" type="number" value="{{old('price.addons_price') ?? 0}}"
+                                   step="any" class="form-control"
+                                   aria-label={{__('translations.addons_price')}}
+                                   aria-describedby="inputGroup-sizing-default" required>
+
+                            @error('cost.addons_price')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.total_cost')}}</span>
+                            <input name="cost[total_price]" type="number" step="any" class="form-control"
+                                   aria-label={{__('translations.total_cost')}}
+                                   aria-describedby="inputGroup-sizing-default" disabled>
+
+                            @error('cost.total_price')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
                         <div class="form-check form-switch input-group">
                             <input class="form-check-input gmail-sync-input" name="gmail_sync" type="checkbox"
                                    role="switch" id="gmail-sync" value="{{ old('gmail_sync') }}">

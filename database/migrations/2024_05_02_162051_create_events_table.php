@@ -15,9 +15,10 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('event_name');
             $table->text('note')->nullable();
-            $table->bigInteger('client_id')->nullable()->index();
-            $table->bigInteger('client_address_id')->nullable()->index();
-            $table->bigInteger('delivery_address_id')->nullable()->index();
+            $table->unsignedBigInteger('client_id')->nullable()->index();
+            $table->unsignedBigInteger('client_address_id')->nullable()->index();
+            $table->unsignedBigInteger('delivery_address_id')->nullable()->index();
+            $table->unsignedSmallInteger('cost_id')->index();
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->boolean('gmail_sync')->default(false);
@@ -27,6 +28,7 @@ class CreateEventsTable extends Migration
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->foreign('client_address_id')->references('id')->on('addresses')->onDelete('cascade');
             $table->foreign('delivery_address_id')->references('id')->on('addresses')->onDelete('cascade');
+            $table->foreign('cost_id')->references('id')->on('costs')->onDelete('cascade');
         });
     }
 

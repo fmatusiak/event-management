@@ -13,6 +13,7 @@ interface BasicRepositoryInterface
     public function update(int $id, array $data);
 
     public function get(int $id);
+    public function updateOrCreate(array $attributes, array $values = []);
 
     public function delete(int $id);
 }

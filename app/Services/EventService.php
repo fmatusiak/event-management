@@ -6,9 +6,11 @@ use App\DateParser;
 use App\Exceptions\EventsOverlapException;
 use App\Models\Address;
 use App\Models\Client;
+use App\Models\Cost;
 use App\Models\Event;
 use App\Repositories\AddressRepository;
 use App\Repositories\ClientRepository;
+use App\Repositories\CostRepository;
 use App\Repositories\EventRepository;
 use Carbon\Carbon;
 use Exception;
@@ -23,11 +25,17 @@ class EventService implements EventServiceInterface
 
     private AddressRepository $addressRepository;
 
-    public function __construct(EventRepository $eventRepository, ClientRepository $clientRepository, AddressRepository $addressRepository)
+    private CostRepository $costRepository;
+
+    private CostCalculatorService $costCalculatorService;
+
+    public function __construct(EventRepository $eventRepository, ClientRepository $clientRepository, AddressRepository $addressRepository, CostRepository $costRepository, CostCalculatorService $costCalculatorService)
     {
         $this->eventRepository = $eventRepository;
         $this->clientRepository = $clientRepository;
         $this->addressRepository = $addressRepository;
+        $this->costRepository = $costRepository;
+        $this->costCalculatorService = $costCalculatorService;
     }
 
     /**
@@ -43,9 +51,20 @@ class EventService implements EventServiceInterface
 
             $eventData = $this->prepareEventData($data);
 
+            $eventCreated = $this->eventRepository->create($eventData);
+
+            $data['cost']['event_id'] = $eventCreated->id;
+
+            $cost = $this->createOrUpdateCost($data['cost']);
+
+            $totalCost = $this->costCalculatorService->calculateCost($cost);
+
+            $cost->setTotalCost($totalCost);
+            $cost->save();
+
             DB::commit();
 
-            return $this->eventRepository->create($eventData);
+            return $eventCreated;
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
@@ -149,12 +168,38 @@ class EventService implements EventServiceInterface
 
             $eventData = $this->prepareEventData($data);
 
+            $eventUpdated = $this->eventRepository->update($eventId, $eventData);
+
+            $data['event_id'] = $eventUpdated->id;
+
+            $cost = $this->createOrUpdateCost($data);
+
+            $totalCost = $this->costCalculatorService->calculateCost($cost);
+
+            $cost->setTotalCost($totalCost);
+            $cost->save();
+
             DB::commit();
 
-            return $this->eventRepository->update($eventId, $eventData);
+            return $eventUpdated;
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
+    }
+
+    private function createOrUpdateCost(array $costData): Cost
+    {
+        $attributes = [
+            'event_id' => Arr::get($costData, 'event_id')
+        ];
+
+        $values = [
+            'package_id' => Arr::get($costData, 'package_id'),
+            'transport_price' => Arr::get($costData, 'transport_price', 0),
+            'addons_price' => Arr::get($costData, 'addons_price', 0),
+        ];
+
+        return $this->costRepository->updateOrCreate($attributes, $values);
     }
 }

@@ -27,5 +27,6 @@ return [
     'next' => 'Next',
     'last' => 'Last',
 
-
+    'transport_price' => 'Transport Price',
+    'prices' => 'Prices',
 ];

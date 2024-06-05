@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\EventsOverlapException;
+use App\Models\Package;
 use App\Repositories\EventRepository;
 use App\Services\EventService;
 use Exception;
@@ -55,7 +56,9 @@ class EventController extends Controller
 
     public function createEvent(): View
     {
-        return view('events.create');
+        $packages = Package::all();
+
+        return view('events.create',['packages' => $packages]);
     }
 
     public function updateEvent(int $eventId, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse

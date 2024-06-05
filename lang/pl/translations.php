@@ -38,6 +38,7 @@ return [
     'events' => 'Wydarzenia',
     'contracts' => 'Umowy',
     'packages' => 'Pakiety',
+    'package' => 'Pakiet',
     'settings' => 'Ustawienia',
     'client' => 'Klient',
 
@@ -51,4 +52,9 @@ return [
     'previous' => 'Poprzednia',
     'next' => 'Następna',
     'last' => 'Ostatnia',
+
+    'transport_price' => 'Koszt transportu',
+    'prices' => 'Koszty',
+    'addons_price' => "Koszty dodatkowe",
+    'total_cost' => "Całkowity koszt"
 ];

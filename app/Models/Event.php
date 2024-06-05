@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
@@ -114,5 +115,9 @@ class Event extends Model
     public function deliveryAddress(): BelongsTo
     {
         return $this->belongsTo(Address::class, 'delivery_address_id');
+    }
+
+    public function cost(): HasOne {
+        return $this->hasOne(Cost::class);
     }
 }
