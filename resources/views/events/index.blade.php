@@ -44,6 +44,10 @@
     <div class="row">
         @include('components.menu')
 
+        @php
+            use Carbon\Carbon;
+        @endphp
+
         <main class="main col-md-10 ms-sm-auto col-lg-10 px-md-4">
             <h2>{{__('translations.events')}}</h2>
 
@@ -61,6 +65,7 @@
                         <th scope="col">{{__('translations.start_time')}}</th>
                         <th scope="col">{{__('translations.end_time')}}</th>
                         <th scope="col">{{__('translations.price')}}</th>
+                        <th scope="col">{{__('translations.deposit_paid')}}</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -71,10 +76,12 @@
                             <th scope="row">{{ $item->id }}</th>
                             <td>{{ $item->event_name}}</td>
                             <td>{{ $item->client->first_name}} {{ $item->client->last_name}}</td>
-                            <td>{{ $item->deliveryAddress->street}} {{$item->deliveryAddress->city}}</td>
-                            <td>{{ $item->start_time}}</td>
-                            <td>{{ $item->end_time}}</td>
-                            <td></td>
+                            <td>{{ $item->deliveryAddress->street}}
+                                , {{$item->deliveryAddress->postcode}} {{$item->deliveryAddress->city}}</td>
+                            <td>{{ Carbon::parse($item->start_time)->format('d-m-Y H:i') }}</td>
+                            <td>{{ Carbon::parse($item->end_time)->format(' d-m-Y H:i') }}</td>
+                            <td>{{ $item->cost->total_cost}}</td>
+                            <td>{{ $item->cost->deposit_paid ? __('translations.yes') : __('translations.no')}}</td>
                             <td>
                                 <a class="btn btn-primary" role="button"
                                    href="{{ route('events.edit',['eventId' => $item->id]) }}">{{__('translations.edit')}}</a>

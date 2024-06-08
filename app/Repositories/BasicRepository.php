@@ -35,7 +35,13 @@ class BasicRepository
         return $model->delete();
     }
 
-    public function updateOrCreate(array $attributes, array $values = []){
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
         return $this->model::updateOrCreate($attributes, $values);
+    }
+
+    public function all()
+    {
+        return $this->model::all();
     }
 }

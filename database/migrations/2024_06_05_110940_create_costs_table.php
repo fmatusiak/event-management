@@ -18,6 +18,8 @@ class CreateCostsTable extends Migration
             $table->decimal('transport_price')->default(0);
             $table->decimal('addons_price')->default(0);
             $table->decimal('total_cost')->default(0);
+            $table->decimal('deposit_cost')->default(0);
+            $table->boolean('deposit_paid')->default(false)->index();
             $table->timestamps();
             $table->softDeletes();
 
@@ -33,4 +35,6 @@ class CreateCostsTable extends Migration
     {
         Schema::dropIfExists('costs');
     }
-};
+}
+
+;

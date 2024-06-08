@@ -14,9 +14,7 @@ class CostRepository extends BasicRepository implements BasicRepositoryInterface
 
     public function paginate(array $filters = [], int $perPage = 15, array $columns = ['*']): LengthAwarePaginator
     {
-        $query = Cost::query();
-
-        $query = $query->with(['event','package']);
+        $query = $this->model::query();
 
         return $query->paginate($perPage, $columns);
     }

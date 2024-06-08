@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\EventsOverlapException;
-use App\Models\Package;
 use App\Repositories\EventRepository;
+use App\Repositories\PackageRepository;
 use App\Services\EventService;
 use Exception;
 use Illuminate\Contracts\View\Factory;
@@ -20,10 +20,13 @@ class EventController extends Controller
     protected EventService $eventService;
     protected EventRepository $eventRepository;
 
-    public function __construct(EventService $eventService, EventRepository $eventRepository)
+    protected PackageRepository $packageRepository;
+
+    public function __construct(EventService $eventService, EventRepository $eventRepository, PackageRepository $packageRepository)
     {
         $this->eventService = $eventService;
         $this->eventRepository = $eventRepository;
+        $this->packageRepository = $packageRepository;
     }
 
     public function paginate(Request $request): View
@@ -46,19 +49,19 @@ class EventController extends Controller
         try {
             $event = $this->eventService->createEvent($request->all());
 
-            return redirect()->route('events.create')->with('status', __('messages.created') . " " . $event->getEventName());
+            return redirect()->route('events.edit', ['eventId' => $event->id])->with('status', __('messages.created'));
         } catch (EventsOverlapException) {
             return back()->withInput()->with('error', __('messages.events_overlap'));
-        } catch (Exception $e) {
+        } catch (Exception) {
             return back()->withInput()->with('error', __('messages.error_create'));
         }
     }
 
     public function createEvent(): View
     {
-        $packages = Package::all();
+        $packages = $this->packageRepository->all();
 
-        return view('events.create',['packages' => $packages]);
+        return view('events.create', ['packages' => $packages]);
     }
 
     public function updateEvent(int $eventId, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
@@ -71,8 +74,8 @@ class EventController extends Controller
             return back()->withInput()->with('error', __('messages.not_found'));
         } catch (EventsOverlapException) {
             return back()->withInput()->with('error', __('messages.events_overlap'));
-        } catch (Exception) {
-            return back()->withInput()->with('error', __('messages.error_update'));
+        } catch (Exception $e) {
+            return back()->withInput()->with('error', __('messages.error_update') . $e->getMessage());
         }
     }
 
@@ -80,8 +83,9 @@ class EventController extends Controller
     {
         try {
             $event = $this->eventRepository->get($eventId);
+            $packages = $this->packageRepository->all();
 
-            return view('events.edit', ['event' => $event]);
+            return view('events.edit', ['event' => $event, 'packages' => $packages]);
         } catch (ModelNotFoundException) {
             return back()->with('error', __('messages.not_found'));
         } catch (Exception) {

@@ -89,7 +89,8 @@
                         <div class="input-group">
                             <span class="input-group-text"
                                   id="inputGroup-sizing-default">{{__('translations.package')}}</span>
-                            <select name="cost[package_id]" class="form-select" aria-label="Default select example">
+                            <select name="cost[package_id]" class="form-select" aria-label="Default select example"
+                                    required>
                                 @foreach($packages as $package)
                                     <option
                                         value='{{ $package->id }}' {{ old('cost.package_id') == $package->id ? 'selected' : '' }}>
@@ -103,7 +104,6 @@
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
-
 
                         <div class="input-group">
                             <span class="input-group-text"
@@ -121,7 +121,7 @@
                         <div class="input-group">
                             <span class="input-group-text"
                                   id="inputGroup-sizing-default">{{__('translations.addons_price')}}</span>
-                            <input name="package[addons_price]" type="number" value="{{old('price.addons_price') ?? 0}}"
+                            <input name="cost[addons_price]" type="number" value="{{old('cost.addons_price') ?? 0}}"
                                    step="any" class="form-control"
                                    aria-label={{__('translations.addons_price')}}
                                    aria-describedby="inputGroup-sizing-default" required>
@@ -131,16 +131,11 @@
                             @enderror
                         </div>
 
-                        <div class="input-group">
-                            <span class="input-group-text"
-                                  id="inputGroup-sizing-default">{{__('translations.total_cost')}}</span>
-                            <input name="cost[total_price]" type="number" step="any" class="form-control"
-                                   aria-label={{__('translations.total_cost')}}
-                                   aria-describedby="inputGroup-sizing-default" disabled>
-
-                            @error('cost.total_price')
-                            <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
+                        <div class="form-check form-switch input-group">
+                            <input class="form-check-input gmail-sync-input" name="cost[deposit_paid]" type="checkbox"
+                                   role="switch" id="deposit_paid" value="{{old('cost.deposit_paid') }}">
+                            <label class="form-check-label gmail-sync-label"
+                                   for="deposit_paid">{{__('translations.deposit_paid')}}</label>
                         </div>
 
                         <div class="form-check form-switch input-group">

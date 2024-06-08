@@ -21,7 +21,7 @@ class PackageSeeder extends Seeder
             [
                 'name' => '2 godzinny',
                 'rental_time' => 120,
-                'price' => 899
+                'price' => 999
             ],
             [
                 'name' => '3 godzinny',
@@ -31,13 +31,12 @@ class PackageSeeder extends Seeder
             [
                 'name' => '4 godzinny',
                 'rental_time' => 240,
-                'price' => 1399
+                'price' => 1299
             ]
         ];
 
         foreach ($packages as $package) {
             Package::updateOrCreate($package);
         }
-
     }
 }

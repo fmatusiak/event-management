@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PackageController;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,12 @@ Route::prefix('clients')->group(function () {
 Route::prefix('addresses')->group(function () {
     Route::get('/search-addresses-by-keywords', [AddressController::class, 'searchAddressesByKeywords'])->name('addresses.search-addresses-by-keywords');
 });
+
+Route::prefix('contracts')->group(function () {
+    Route::get('/generate-contract-for-event/{eventId}', [ContractController::class, 'generateContractForEvent'])->name('contracts.generate-contract-for-event');
+    Route::get('/preview/{eventId}', [ContractController::class, 'generateContractPdfInBrowser'])->name('contracts.preview');
+    Route::get('/download/{eventId}', [ContractController::class, 'generateContractPdfToDownload'])->name('contracts.download');
+});
+
+
 

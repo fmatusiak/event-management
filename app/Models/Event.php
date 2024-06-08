@@ -117,7 +117,8 @@ class Event extends Model
         return $this->belongsTo(Address::class, 'delivery_address_id');
     }
 
-    public function cost(): HasOne {
+    public function cost(): HasOne
+    {
         return $this->hasOne(Cost::class);
     }
 }

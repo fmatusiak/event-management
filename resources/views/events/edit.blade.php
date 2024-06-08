@@ -31,6 +31,7 @@
                         <path d="M5 12l6 -6"/>
                     </svg>
                 </a>
+                <a href="{{route('contracts.generate-contract-for-event',['eventId' => $event->id])}}" target="_blank" class="btn btn-info contract-generate">{{__('translations.contract_generate')}}</a>
             </div>
 
             <form method='POST' action="{{ route('events.update',['eventId' => $event->id])}}">
@@ -78,6 +79,88 @@
                                    aria-describedby="inputGroup-sizing-default" value="{{$event->end_time}}" required>
 
                             @error('end_time')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
+                        <div class="input-group price">
+                            <h3 class="price-title">{{__('translations.prices')}}</h3>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.package')}}</span>
+                            <select name="cost[package_id]" class="form-select"
+                                    aria-label="{{__('translations.package')}}" required>
+                                @foreach($packages as $package)
+                                    <option
+                                        value='{{ $package->id }}' {{ $event->cost->package->id == $package->id ? 'selected' : '' }}>
+                                        {{ $package->getName() }} [ {{ __('translations.price') }}
+                                        : {{ $package->getPrice() }} ]
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @error('cost.package_id')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.transport_price')}}</span>
+                            <input name="cost[transport_price]" type="number"
+                                   value="{{$event->cost->transport_price}}" step="any" class="form-control"
+                                   aria-label={{__('translations.transport_price')}}
+                                   aria-describedby="inputGroup-sizing-default" required>
+
+                            @error('cost.transport_price')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.addons_price')}}</span>
+                            <input name="cost[addons_price]" type="number" value="{{$event->cost->addons_price}}"
+                                   step="any" class="form-control"
+                                   aria-label={{__('translations.addons_price')}}
+                                   aria-describedby="inputGroup-sizing-default" required>
+
+                            @error('cost.addons_price')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-check form-switch input-group">
+                            <input class="form-check-input gmail-sync-input" name="cost[deposit_paid]" type="checkbox"
+                                   role="switch" id="deposit_paid" value="{{$event->cost->deposit_paid}}" {{$event->cost->deposit_paid ? 'checked' : ''}}>
+                            <label class="form-check-label gmail-sync-label"
+                                   for="deposit_paid">{{__('translations.deposit_paid')}}</label>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.deposit')}}</span>
+                            <input name="cost[deposit_cost]" type="number" value="{{$event->cost->deposit_cost}}"
+                                   step="any" class="form-control"
+                                   aria-label={{__('translations.deposit')}}
+                                   aria-describedby="inputGroup-sizing-default" disabled>
+
+                            @error('cost.deposit_cost')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.total_cost')}}</span>
+                            <input name="cost[total_cost]" type="number" value="{{$event->cost->total_cost}}" step="any"
+                                   class="form-control"
+                                   aria-label={{__('translations.total_cost')}}
+                                   aria-describedby="inputGroup-sizing-default" disabled>
+
+                            @error('cost.total_cost')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
@@ -507,6 +590,14 @@
         $('#client_address_address_id').val('');
     }
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const depositPaidCheckbox = document.getElementById('deposit_paid');
+
+        depositPaidCheckbox.addEventListener('change', function () {
+            const value = depositPaidCheckbox.checked ? 1 : 0;
+            depositPaidCheckbox.value = value;
+        });
+    });
 
 </script>
 

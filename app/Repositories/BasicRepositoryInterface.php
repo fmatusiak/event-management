@@ -8,11 +8,14 @@ interface BasicRepositoryInterface
 {
     public function paginate(array $filters = [], int $perPage = 15, array $columns = ['*']): LengthAwarePaginator;
 
+    public function all();
+
     public function create(array $data);
 
     public function update(int $id, array $data);
 
     public function get(int $id);
+
     public function updateOrCreate(array $attributes, array $values = []);
 
     public function delete(int $id);

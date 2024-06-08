@@ -88,7 +88,7 @@ class PackageController extends Controller
             return response()->json(['status' => __('messages.deleted')]);
         } catch (ModelNotFoundException) {
             return response()->json(['error' => __('messages.not_found')]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return response()->json(['error' => __('messages.error_delete')]);
         }
     }

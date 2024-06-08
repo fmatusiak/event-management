@@ -18,10 +18,10 @@ class CreateEventsTable extends Migration
             $table->unsignedBigInteger('client_id')->nullable()->index();
             $table->unsignedBigInteger('client_address_id')->nullable()->index();
             $table->unsignedBigInteger('delivery_address_id')->nullable()->index();
-            $table->unsignedSmallInteger('cost_id')->index();
+            $table->unsignedSmallInteger('cost_id')->nullable()->index();
             $table->dateTime('start_time');
             $table->dateTime('end_time');
-            $table->boolean('gmail_sync')->default(false);
+            $table->boolean('gmail_sync')->default(false)->index();
             $table->timestamps();
             $table->softDeletes();
 

@@ -16,6 +16,7 @@ return [
     'events_overlap' => 'Pomiędzy podanymi czasami już istnieją inne wydarzenia',
     'error_search_clients_by_keywords' => 'Wystąpił błąd podczas wyszukiwania klientów na podstawie słów kluczowych',
     'error_search_addresses_by_keywords' => 'Wystąpił błąd podczas wyszukiwania adresów na podstawie słów kluczowych',
-    "error_negative_cost" => "Koszt nie może być ujemny"
+    "error_negative_cost" => "Koszt nie może być ujemny",
+    'error_generate_contract_for_event' => "Wystąpił błąd z wygenerowaniem umowy dla danego wydarzenia"
 ];
 

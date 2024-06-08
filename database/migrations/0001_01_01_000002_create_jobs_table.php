@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJobsTable extends Migration {
+class CreateJobsTable extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -53,4 +54,6 @@ class CreateJobsTable extends Migration {
         Schema::dropIfExists('job_batches');
         Schema::dropIfExists('failed_jobs');
     }
-};
+}
+
+;

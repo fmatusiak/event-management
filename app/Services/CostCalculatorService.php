@@ -5,9 +5,9 @@ namespace App\Services;
 use App\Models\Cost;
 use InvalidArgumentException;
 
-class CostCalculatorService
+class CostCalculatorService implements CostCalculatorInterface
 {
-    public function calculateCost(Cost $cost): float
+    public function calculateTotalCost(Cost $cost): float
     {
         $totalPackagePrice = $cost->package->price;
         $totalTransportPrice = $cost->getTransportPrice();
@@ -20,5 +20,19 @@ class CostCalculatorService
         $totalCost = $totalPackagePrice + $totalTransportPrice + $totalAddonsPrice;
 
         return (float)sprintf('%.2f', $totalCost);
+    }
+
+    public function calculateDepositCost(float $totalCost, float $depositPercentage = 0.3): float
+    {
+        $depositCost = $totalCost * $depositPercentage;
+
+        return (float)sprintf('%.2f', $depositCost);
+    }
+
+    public function calculateRemainingCostAfterDeposit(float $totalCost, float $depositCost): float
+    {
+        $remainingCost = $totalCost - $depositCost;
+
+        return (float)sprintf('%.2f', $remainingCost);
     }
 }

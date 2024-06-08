@@ -56,5 +56,14 @@ return [
     'transport_price' => 'Koszt transportu',
     'prices' => 'Koszty',
     'addons_price' => "Koszty dodatkowe",
-    'total_cost' => "Całkowity koszt"
+    'total_cost' => "Całkowity koszt",
+    'deposit' => "Zadatek",
+    'deposit_paid' => 'Zadatek wpłacony',
+    'yes' => 'Tak',
+    'no' => 'Nie',
+
+    'preview' => 'Podgląd',
+    'download' => "Pobierz",
+
+    'contract_generate' => 'Wygeneruj umowę',
 ];
