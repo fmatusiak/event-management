@@ -35,12 +35,12 @@ class ContractPdfService implements ContractPdfInterface
         return $pdf->stream($filename);
     }
 
-    private function generateContractFilename(Event $event): string
+    public function generateContractFilename(Event $event): string
     {
         $eventName = $event->getEventName();
         $dateFormatted = $this->formatDateForFilename($event->getStartTime());
 
-        return $eventName . "-" . $dateFormatted . ".pdf";
+        return $eventName . " " . $dateFormatted . ".pdf";
     }
 
     private function formatDateForFilename($date): string

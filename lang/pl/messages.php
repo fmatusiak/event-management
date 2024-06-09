@@ -17,6 +17,8 @@ return [
     'error_search_clients_by_keywords' => 'Wystąpił błąd podczas wyszukiwania klientów na podstawie słów kluczowych',
     'error_search_addresses_by_keywords' => 'Wystąpił błąd podczas wyszukiwania adresów na podstawie słów kluczowych',
     "error_negative_cost" => "Koszt nie może być ujemny",
-    'error_generate_contract_for_event' => "Wystąpił błąd z wygenerowaniem umowy dla danego wydarzenia"
+    'error_generate_contract_for_event' => "Wystąpił błąd z wygenerowaniem umowy dla danego wydarzenia",
+    'success_contract_sent' => 'Umowa wysłana pomyślnie! ',
+    'error_sending_contract' => 'Wystąpił błąd podczas wysyłania umowy ',
 ];
 

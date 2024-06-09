@@ -1,8 +1,8 @@
 <?php
 return [
     'owner' => [
-        'name' => '',
-        'address' => '',
-        'bank_account' => '',
-        ]
-    ];
+        'name' => env('OWNER_NAME', ''),
+        'address' => env('OWNER_ADDRESS', ''),
+        'bank_account' => env('OWNER_BANK_ACCOUNT', ''),
+    ]
+];

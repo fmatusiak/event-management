@@ -10,6 +10,8 @@ interface ContractPdfInterface
 {
     public function generateContractPdf(Event $event): string;
 
+    public function generateContractFilename(Event $event): string;
+
     public function generateContractPdfView(Event $event): PDF;
 
     public function generateContractPdfInBrowser(Event $event): Response;

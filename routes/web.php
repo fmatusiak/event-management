@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PackageController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,12 @@ Route::prefix('contracts')->group(function () {
     Route::get('/preview/{eventId}', [ContractController::class, 'generateContractPdfInBrowser'])->name('contracts.preview');
     Route::get('/download/{eventId}', [ContractController::class, 'generateContractPdfToDownload'])->name('contracts.download');
 });
+
+Route::prefix('emails')->group(function () {
+    Route::post('/send-contract-email/{eventId}', [EmailController::class, 'sendContractEmail'])->name('send.contract.email');
+    Route::get('/preview-contract-email/{eventId}', [EmailController::class, 'previewContractEmail'])->name('preview.contract.email');
+});
+
 
 
 
