@@ -16,18 +16,18 @@ class ContractMail extends Mailable
     use Queueable, SerializesModels;
 
     protected Event $event;
-    protected string $pdfOutput;
+    protected string $pdfPath;
 
     protected ContractPdfService $contractPdfService;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Event $event, string $pdfOutput)
+    public function __construct(Event $event, string $pdfPath)
     {
         $this->event = $event;
-        $this->pdfOutput = $pdfOutput;
-        $this->contractPdfService = new ContractPdfService();
+        $this->pdfPath = $pdfPath;
+        $this->contractPdfService = app(ContractPdfService::class);
     }
 
     /**
@@ -36,7 +36,7 @@ class ContractMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'My Test Email',
+            subject: __('translations.contract_title'),
         );
     }
 
@@ -58,11 +58,8 @@ class ContractMail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
-//        $filename = $this->contractPdfService->generateContractFilename($this->event);
-//
-//        $attachment = Attachment::fromData(fn() => $this->pdfOutput, $filename) ->withMime('application/pdf');
-//
-//        return [$attachment];
+        $attachment = Attachment::fromPath($this->pdfPath)->withMime('application/pdf');
+
+        return [$attachment];
     }
 }

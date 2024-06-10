@@ -321,7 +321,6 @@
         @if($showLinks)
             <a href="{{ route('contracts.preview', ['eventId' => $event->id]) }}"
                target="_blank">{{__('translations.preview')}}</a>
-            {{--            <a href="{{ route('contracts.download', ['eventId' => $event->id]) }}" target="_blank">{{__('translations.download')}}</a>--}}
         @endif
     </div>
 </div>

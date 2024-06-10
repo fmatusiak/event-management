@@ -59,9 +59,11 @@ class EventService implements EventServiceInterface
 
             $totalCost = $this->costCalculatorService->calculateTotalCost($cost);
             $depositCost = $this->costCalculatorService->calculateDepositCost($totalCost);
+            $remainingCost = $this->costCalculatorService->calculateRemainingCostAfterDeposit($totalCost, $depositCost);
 
             $cost->setTotalCost($totalCost);
             $cost->setDepositCost($depositCost);
+            $cost->setRemainingCost($remainingCost);
             $cost->save();
 
             DB::commit();
@@ -194,9 +196,11 @@ class EventService implements EventServiceInterface
 
             $totalCost = $this->costCalculatorService->calculateTotalCost($cost);
             $depositCost = $this->costCalculatorService->calculateDepositCost($totalCost);
+            $remainingCost = $this->costCalculatorService->calculateRemainingCostAfterDeposit($totalCost, $depositCost);
 
             $cost->setTotalCost($totalCost);
             $cost->setDepositCost($depositCost);
+            $cost->setRemainingCost($remainingCost);
             $cost->save();
 
             DB::commit();

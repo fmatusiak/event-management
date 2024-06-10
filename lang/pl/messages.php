@@ -20,5 +20,7 @@ return [
     'error_generate_contract_for_event' => "Wystąpił błąd z wygenerowaniem umowy dla danego wydarzenia",
     'success_contract_sent' => 'Umowa wysłana pomyślnie! ',
     'error_sending_contract' => 'Wystąpił błąd podczas wysyłania umowy ',
+    'pdf_save_error' => 'Wystąpił błąd podczas zapisywania pliku PDF',
+    'mail_send_failed' => 'Wysyłanie wiadomości e-mail nie powiodła się',
 ];
 

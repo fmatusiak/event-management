@@ -25,12 +25,15 @@ class EmailService implements EmailServiceInterface
 
             $clientEmail = $event->client->getEmail();
 
+            $pdfPath = $this->contractPdfService->generateContractPdf($event);
 
-            $pdfOutput = $this->contractPdfService->generateContractPdf($event);
+            $contractMail = new ContractMail($event, $pdfPath);
 
-            $contractMail = new ContractMail($event, $pdfOutput);
+            $messageSent = Mail::to($clientEmail)->sendNow($contractMail);
 
-            Mail::to($clientEmail)->queue($contractMail);
+            if (!$messageSent) {
+                throw new Exception(__('messages.mail_send_failed'));
+            }
 
             $emailContent = $contractMail->render();
 
@@ -39,6 +42,8 @@ class EmailService implements EmailServiceInterface
                 'to' => $clientEmail,
                 'body' => $emailContent,
             ]);
+
+            $this->contractPdfService->deleteGeneratedPdf($pdfPath);
 
             DB::commit();
         } catch (Exception $e) {

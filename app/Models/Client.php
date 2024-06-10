@@ -19,19 +19,9 @@ class Client extends Model
         'phone',
     ];
 
-    public function getFirstName(): string
-    {
-        return $this->getAttribute('first_name');
-    }
-
     public function setFirstName(string $firstName): void
     {
         $this->setAttribute('first_name', $firstName);
-    }
-
-    public function getLastName(): string
-    {
-        return $this->getAttribute('last_name');
     }
 
     public function setLastName(string $lastName): void
@@ -67,6 +57,21 @@ class Client extends Model
     public function setPhone(?string $phone): void
     {
         $this->setAttribute('phone', $phone);
+    }
+
+    public function getFullName(): string
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->getAttribute('first_name');
+    }
+
+    public function getLastName(): string
+    {
+        return $this->getAttribute('last_name');
     }
 
     public function events(): HasMany

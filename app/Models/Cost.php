@@ -59,6 +59,16 @@ class Cost extends Model
         $this->setAttribute('deposit_cost', $value);
     }
 
+    public function getRemainingCost(): float
+    {
+        return $this->getAttribute('remaining_cost');
+    }
+
+    public function setRemainingCost($value): void
+    {
+        $this->setAttribute('remaining_cost', $value);
+    }
+
     public function getDepositPaid(): bool
     {
         return $this->getAttribute('deposit_paid');

@@ -32,6 +32,7 @@
                     </svg>
                 </a>
                 <a href="{{route('contracts.generate-contract-for-event',['eventId' => $event->id])}}" target="_blank" class="btn btn-info contract-generate">{{__('translations.contract_generate')}}</a>
+                <a href="{{route('send.contract.email',['eventId' => $event->id])}}" class="btn btn-dark">{{__('translations.send_contract')}}</a>
             </div>
 
             <form method='POST' action="{{ route('events.update',['eventId' => $event->id])}}">

@@ -65,5 +65,8 @@ return [
     'preview' => 'Podgląd',
     'download' => "Pobierz",
 
+    'contract_filename' => "Umowa ",
     'contract_generate' => 'Wygeneruj umowę',
+    'contract_title' => 'Umowa na wynajem Fotobudki 360',
+    'send_contract' => 'Wyślij umowę',
 ];

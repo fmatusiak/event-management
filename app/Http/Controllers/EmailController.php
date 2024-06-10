@@ -26,7 +26,7 @@ class EmailController extends Controller
             $event = $this->eventRepository->get($eventId);
             $this->emailService->sendContractEmail($event);
 
-            return back()->with('success', __('messages.success_contract_sent'));
+            return back()->with('status', __('messages.success_contract_sent'));
         } catch (Exception $e) {
             return back()->with('error', __('messages.error_sending_contract' . $e->getMessage()));
         }
