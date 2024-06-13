@@ -7,6 +7,7 @@ use App\Services\EmailService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class EmailController extends Controller
@@ -28,6 +29,11 @@ class EmailController extends Controller
 
             return back()->with('status', __('messages.success_contract_sent'));
         } catch (Exception $e) {
+            Log::error(__('messages.error_sending_contract'), [
+                'error_message' => $e->getMessage(),
+                'error' => $e,
+            ]);
+
             return back()->with('error', __('messages.error_sending_contract' . $e->getMessage()));
         }
     }

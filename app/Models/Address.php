@@ -19,29 +19,14 @@ class Address extends Model
         'longitude'
     ];
 
-    public function getStreet(): string
-    {
-        return $this->getAttribute('street');
-    }
-
     public function setStreet(string $street): void
     {
         $this->setAttribute('street', $street);
     }
 
-    public function getCity(): string
-    {
-        return $this->getAttribute('city');
-    }
-
     public function setCity(string $city): void
     {
         $this->setAttribute('city', $city);
-    }
-
-    public function getPostcode(): string
-    {
-        return $this->getAttribute('postcode');
     }
 
     public function setPostcode(string $postcode): void
@@ -69,8 +54,24 @@ class Address extends Model
         $this->setAttribute('longitude', $longitude);
     }
 
-    public function getFullAddress(): string {
+    public function getFullAddress(): string
+    {
         return $this->getStreet() . ', ' . $this->getPostcode() . ' ' . $this->getCity();
+    }
+
+    public function getStreet(): string
+    {
+        return $this->getAttribute('street');
+    }
+
+    public function getPostcode(): string
+    {
+        return $this->getAttribute('postcode');
+    }
+
+    public function getCity(): string
+    {
+        return $this->getAttribute('city');
     }
 
     public function clientAddresses(): HasMany

@@ -17,7 +17,7 @@ class ContractController extends Controller
     {
         $this->eventRepository = $eventRepository;
     }
-
+    
     public function generateContractForEvent(int $eventId): View
     {
         try {
