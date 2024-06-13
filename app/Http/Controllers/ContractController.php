@@ -6,6 +6,7 @@ use App\Repositories\EventRepository;
 use App\Services\ContractPdfService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class ContractController extends Controller
@@ -26,6 +27,11 @@ class ContractController extends Controller
         } catch (ModelNotFoundException $e) {
             return view('contracts.photo_booth_contract', ['error' => __('messages.not_found') . __('translations.events') . $e->getMessage()]);
         } catch (Exception $e) {
+            Log::error(__('messages.error_generate_contract_for_event'), [
+                'error_message' => $e->getMessage(),
+                'error' => $e,
+            ]);
+
             return view('contracts.photo_booth_contract', ['error' => __('messages.error_generate_contract_for_event') . $e->getMessage()]);
         }
     }
@@ -39,6 +45,11 @@ class ContractController extends Controller
         } catch (ModelNotFoundException $e) {
             return view('contracts.preview', ['error' => __('messages.not_found') . $e->getMessage()]);
         } catch (Exception $e) {
+            Log::error(__('messages.error_generate_contract_for_event'), [
+                'error_message' => $e->getMessage(),
+                'error' => $e,
+            ]);
+
             return view('contracts.preview', ['error' => __('messages.error_generate_contract_for_event') . $e->getMessage()]);
         }
     }
@@ -52,6 +63,11 @@ class ContractController extends Controller
         } catch (ModelNotFoundException $e) {
             return view('contracts.preview', ['error' => __('messages.not_found') . $e->getMessage()]);
         } catch (Exception $e) {
+            Log::error(__('messages.error_generate_contract_for_event'), [
+                'error_message' => $e->getMessage(),
+                'error' => $e,
+            ]);
+
             return view('contracts.preview', ['error' => __('messages.error_generate_contract_for_event') . $e->getMessage()]);
         }
     }

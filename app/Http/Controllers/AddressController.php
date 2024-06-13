@@ -6,6 +6,7 @@ use App\Repositories\AddressRepository;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AddressController extends Controller
 {
@@ -24,6 +25,11 @@ class AddressController extends Controller
 
             return response()->json($addresses);
         } catch (Exception $e) {
+            Log::error(__('error_search_addresses_by_keywords'), [
+                'error_message' => $e->getMessage(),
+                'error' => $e,
+            ]);
+
             return response()->json(["error" => __('error_search_addresses_by_keywords')], 400);
         }
     }

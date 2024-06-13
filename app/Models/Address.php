@@ -69,6 +69,10 @@ class Address extends Model
         $this->setAttribute('longitude', $longitude);
     }
 
+    public function getFullAddress(): string {
+        return $this->getStreet() . ', ' . $this->getPostcode() . ' ' . $this->getCity();
+    }
+
     public function clientAddresses(): HasMany
     {
         return $this->hasMany(Event::class, 'client_address_id');

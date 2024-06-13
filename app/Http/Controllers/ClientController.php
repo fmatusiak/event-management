@@ -6,6 +6,7 @@ use App\Repositories\ClientRepository;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ClientController extends Controller
 {
@@ -24,6 +25,11 @@ class ClientController extends Controller
 
             return response()->json($clients);
         } catch (Exception $e) {
+            Log::error(__('messages.error_search_clients_by_keywords'), [
+                'error_message' => $e->getMessage(),
+                'error' => $e,
+            ]);
+
             return response()->json(['error' => __('messages.error_search_clients_by_keywords')]);
         }
     }

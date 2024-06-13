@@ -22,5 +22,9 @@ return [
     'error_sending_contract' => 'Wystąpił błąd podczas wysyłania umowy ',
     'pdf_save_error' => 'Wystąpił błąd podczas zapisywania pliku PDF',
     'mail_send_failed' => 'Wysyłanie wiadomości e-mail nie powiodła się',
+    'date_parse_error' => 'Nie można przetworzyć daty: :date',
+    'google_calendar_event_create_error' => 'Wystąpił błąd podczas tworzenia wydarzenia w kalendarzu Google',
+    'google_calendar_event_delete_error' => 'Nie udało się usunąć wydarzenia z kalendarza Google',
+
 ];
 
