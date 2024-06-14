@@ -23,7 +23,7 @@ class CreateCostsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
+            $table->foreign('package_id')->references('id')->on('packages');
         });
     }
 
