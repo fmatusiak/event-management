@@ -139,8 +139,8 @@
                         </div>
 
                         <div class="form-check form-switch input-group">
-                            <input class="form-check-input gmail-sync-input" name="gmail_sync" type="checkbox"
-                                   role="switch" id="gmail-sync" value="{{ old('gmail_sync') }}">
+                            <input class="form-check-input gmail-sync-input" name="google-calendar-sync" type="checkbox"
+                                   role="switch" id="google-calendar-sync" value="{{old('google-calendar-sync')}}">
                             <label class="form-check-label gmail-sync-label"
                                    for="gmail-sync">{{__('translations.gmail_sync')}}</label>
                         </div>
@@ -184,9 +184,6 @@
                         <div class="input-group">
                             <select hidden id="client-delivery-results"></select>
                         </div>
-
-                        <input id="client_delivery_address_id" type="hidden" name="client_delivery[address_id]"
-                               value="{{ old('client_delivery.address_id')}}">
 
                         <div class="input-group">
                             <span class="input-group-text">{{__('translations.street')}}</span>
@@ -232,9 +229,6 @@
                         <div class="input-group">
                             <select hidden id="client-search-results"></select>
                         </div>
-
-                        <input id="client_client_id" type="hidden" name="client[client_id]"
-                               value="{{old('client.client_id')}}">
 
                         <div class="input-group">
                             <input id="client_first_name" type="text" class="form-control" name="client[first_name]"
@@ -294,9 +288,6 @@
                             <select hidden id="client-address-results"></select>
                         </div>
 
-                        <input id="client_address_address_id" type="hidden" name="client_address[address_id]"
-                               value="{{old('client_address.address_id')}}">
-
                         <div class="input-group">
                             <span class="input-group-text">{{__('translations.street')}}</span>
                             <input id="client_address_street" name="client_address[street]" type="text"
@@ -307,6 +298,10 @@
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
+
+                        <input id="client_client_id" type="hidden" name="client[client_id]">
+                        <input id="client_delivery_address_id" type="hidden" name="client_delivery[address_id]">
+                        <input id="client_address_address_id" type="hidden" name="client_address[address_id]">
 
                         <div class="input-group">
                             <span class="input-group-text">{{__('translations.city')}}</span>
@@ -563,6 +558,20 @@
         $('#client_address_address_id').val('');
     }
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const depositPaidCheckbox = document.getElementById('deposit_paid');
+
+        depositPaidCheckbox.addEventListener('change', function () {
+            depositPaidCheckbox.value = depositPaidCheckbox.checked ? 1 : 0;
+        });
+
+        const googleCalendarSyncCheckbox = document.getElementById('google-calendar-sync');
+
+        googleCalendarSyncCheckbox.addEventListener('change',function(){
+            googleCalendarSyncCheckbox.value = googleCalendarSyncCheckbox.checked ? 1 : 0;
+        });
+
+    });
 
 </script>
 

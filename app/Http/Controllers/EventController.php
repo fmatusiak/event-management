@@ -117,7 +117,7 @@ class EventController extends Controller
     public function deleteEvent(int $eventId): JsonResponse
     {
         try {
-            $this->eventRepository->delete($eventId);
+            $this->eventService->deleteEvent($eventId);
 
             return response()->json(['status' => __('messages.deleted')]);
         } catch (ModelNotFoundException) {

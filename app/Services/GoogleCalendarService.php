@@ -63,21 +63,16 @@ class GoogleCalendarService
     /**
      * @throws Exception
      */
-    public function deleteCalendarEvent(int $calendarEventId): void
+    public function deleteCalendarEvent(string $calendarEventId): void
     {
         try {
             $calendarEvent = \Spatie\GoogleCalendar\Event::find($calendarEventId);
-
-            if ($calendarEvent) {
-                $calendarEvent->delete();
-            }
+            $calendarEvent->delete();
         } catch (Exception $e) {
             Log::error(__('messages.google_calendar_event_delete_error'), [
                 'error_message' => $e->getMessage(),
                 'error' => $e,
             ]);
-
-            throw new Exception(__('messages.google_calendar_event_delete_error'));
         }
     }
 }

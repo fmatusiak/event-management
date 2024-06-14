@@ -88,6 +88,9 @@
                             <h3 class="price-title">{{__('translations.prices')}}</h3>
                         </div>
 
+                        <input id="cost_cost_id" type="hidden" name="cost[cost_id]"
+                               value="{{$event->cost->id}}">
+
                         <div class="input-group">
                             <span class="input-group-text"
                                   id="inputGroup-sizing-default">{{__('translations.package')}}</span>
@@ -133,13 +136,6 @@
                             @enderror
                         </div>
 
-                        <div class="form-check form-switch input-group">
-                            <input class="form-check-input gmail-sync-input" name="cost[deposit_paid]" type="checkbox"
-                                   role="switch" id="deposit_paid" value="{{$event->cost->deposit_paid}}" {{$event->cost->deposit_paid ? 'checked' : ''}}>
-                            <label class="form-check-label gmail-sync-label"
-                                   for="deposit_paid">{{__('translations.deposit_paid')}}</label>
-                        </div>
-
                         <div class="input-group">
                             <span class="input-group-text"
                                   id="inputGroup-sizing-default">{{__('translations.deposit')}}</span>
@@ -167,8 +163,15 @@
                         </div>
 
                         <div class="form-check form-switch input-group">
-                            <input class="form-check-input gmail-sync-input" name="gmail_sync" type="checkbox"
-                                   role="switch" id="gmail-sync" value="{{$event->gmail_sync}}">
+                            <input class="form-check-input gmail-sync-input" name="cost[deposit_paid]" type="checkbox"
+                                   role="switch" id="deposit_paid" {{$event->cost->deposit_paid ? 'checked' : ''}}>
+                            <label class="form-check-label gmail-sync-label"
+                                   for="deposit_paid">{{__('translations.deposit_paid')}}</label>
+                        </div>
+
+                        <div class="form-check form-switch input-group">
+                            <input class="form-check-input gmail-sync-input" name="google-calendar-sync" type="checkbox"
+                                   role="switch" id="google-calendar-sync" {{$event->google_calendar_event_id ? 'checked' : ''}}>
                             <label class="form-check-label gmail-sync-label"
                                    for="gmail-sync">{{__('translations.gmail_sync')}}</label>
                         </div>
@@ -201,6 +204,9 @@
                     </div>
 
                     <div class="col">
+                        <input id="client_delivery_address_id" type="hidden" name="client_delivery[address_id]"
+                               value="{{$event->deliveryAddress->id}}">
+
                         <h4 class="delivery-address-title">{{__('translations.delivery_address')}}</h4>
 
                         <div class="input-group">
@@ -212,9 +218,6 @@
                         <div class="input-group">
                             <select hidden id="client-delivery-results"></select>
                         </div>
-
-                        <input id="client_delivery_address_id" type="hidden" name="client_delivery[address_id]"
-                               value="{{$event->deliveryAddress->id}}">
 
                         <div class="input-group">
                             <span class="input-group-text">{{__('translations.street')}}</span>
@@ -574,30 +577,33 @@
         $('#client_email').val('');
         $('#client_pesel').val('');
         $('#client_phone').val('');
-        $('#client_client_id').val('');
     }
 
     function clearClientDeliveryFields() {
         $('#client_delivery_street').val('');
         $('#client_delivery_postcode').val('');
         $('#client_delivery_city').val('');
-        $('#client_delivery_address_id').val('');
     }
 
     function clearClientAddressFields() {
         $('#client_address_street').val('');
         $('#client_address_postcode').val('');
         $('#client_address_city').val('');
-        $('#client_address_address_id').val('');
     }
 
     document.addEventListener('DOMContentLoaded', function () {
         const depositPaidCheckbox = document.getElementById('deposit_paid');
 
         depositPaidCheckbox.addEventListener('change', function () {
-            const value = depositPaidCheckbox.checked ? 1 : 0;
-            depositPaidCheckbox.value = value;
+            depositPaidCheckbox.value = depositPaidCheckbox.checked ? 1 : 0;
         });
+
+        const googleCalendarSyncCheckbox = document.getElementById('google-calendar-sync');
+
+        googleCalendarSyncCheckbox.addEventListener('change',function(){
+            googleCalendarSyncCheckbox.value = googleCalendarSyncCheckbox.checked ? 1 : 0;
+        });
+
     });
 
 </script>

@@ -15,20 +15,21 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('event_name');
             $table->text('note')->nullable();
-            $table->unsignedBigInteger('client_id')->nullable()->index();
-            $table->unsignedBigInteger('client_address_id')->nullable()->index();
-            $table->unsignedBigInteger('delivery_address_id')->nullable()->index();
-            $table->unsignedSmallInteger('cost_id')->nullable()->index();
+            $table->unsignedBigInteger('client_id')->index();
+            $table->unsignedBigInteger('client_address_id')->index();
+            $table->unsignedBigInteger('delivery_address_id')->index();
+            $table->unsignedBigInteger('cost_id')->index();
+            $table->unsignedBigInteger('google_calendar_event_id')->nullable()->index();
             $table->dateTime('start_time');
             $table->dateTime('end_time');
-            $table->boolean('gmail_sync')->default(false)->index();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
-            $table->foreign('client_address_id')->references('id')->on('addresses')->onDelete('cascade');
-            $table->foreign('delivery_address_id')->references('id')->on('addresses')->onDelete('cascade');
-            $table->foreign('cost_id')->references('id')->on('costs')->onDelete('cascade');
+            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('client_address_id')->references('id')->on('addresses');
+            $table->foreign('delivery_address_id')->references('id')->on('addresses');
+            $table->foreign('cost_id')->references('id')->on('costs');
+            $table->foreign('google_calendar_event_id')->references('id')->on('google_calendar_events');
         });
     }
 

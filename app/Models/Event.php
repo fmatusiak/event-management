@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
@@ -19,9 +18,10 @@ class Event extends Model
         'client_id',
         'client_address_id',
         'delivery_address_id',
+        'google_calendar_event_id',
+        'cost_id',
         'start_time',
         'end_time',
-        'gmail_sync'
     ];
 
     public function getEventName(): string
@@ -94,16 +94,6 @@ class Event extends Model
         $this->setAttribute('end_time', $endTime);
     }
 
-    public function getGmailSync(): bool
-    {
-        return $this->getAttribute('gmail_sync');
-    }
-
-    public function setGmailSync(bool $gmailSync): void
-    {
-        $this->setAttribute('gmail_sync', $gmailSync);
-    }
-
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
@@ -119,9 +109,14 @@ class Event extends Model
         return $this->belongsTo(Address::class, 'delivery_address_id');
     }
 
-    public function cost(): HasOne
+    public function cost(): BelongsTo
     {
-        return $this->hasOne(Cost::class);
+        return $this->belongsTo(Cost::class);
+    }
+
+    public function googleCalendarEvent(): BelongsTo
+    {
+        return $this->belongsTo(GoogleCalendarEvent::class);
     }
 
     public function emails(): HasMany

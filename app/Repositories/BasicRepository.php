@@ -29,6 +29,11 @@ class BasicRepository
         return $this->model::findOrFail($id);
     }
 
+    public function find(int $id)
+    {
+        return $this->model::find($id);
+    }
+
     public function delete(int $id): bool
     {
         $model = $this->get($id);

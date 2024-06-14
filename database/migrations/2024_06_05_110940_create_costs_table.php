@@ -13,7 +13,6 @@ class CreateCostsTable extends Migration
     {
         Schema::create('costs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('event_id')->index();
             $table->unsignedBigInteger('package_id')->index();
             $table->decimal('transport_price')->default(0);
             $table->decimal('addons_price')->default(0);
@@ -24,7 +23,6 @@ class CreateCostsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
         });
     }
