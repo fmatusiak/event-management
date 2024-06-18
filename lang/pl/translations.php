@@ -7,6 +7,7 @@ return [
     'edit' => 'Edytuj',
     'delete' => 'Usuń',
     'add' => 'Dodaj',
+    'show' => "Pokaż",
 
     'name' => 'Nazwa',
     'rental_time' => 'Czas wypożyczenia (minuty)',
@@ -16,12 +17,15 @@ return [
     'note' => 'Notatki',
     'start_time' => 'Czas rozpoczęcia',
     'end_time' => 'Czas zakończenia',
-    'gmail_sync' => 'Synchronizacja z kalendarzem gmail',
+    'gmail_sync' => 'Synchronizacja z kalendarzem Google',
     'delivery_address' => 'Adres dostawy',
+    'client_address' => 'Adres klienta',
     'search_client' => 'Wyszukaj klienta',
     'search_delivery_address' => 'Wyszukaj adres dostawy',
     'search_client_address' => 'Wyszukaj adres klienta',
     'search_address' => 'Wyszukaj adres',
+    'address' => "Adres",
+    'discount' => "Rabat",
 
     'first_name' => 'Imię',
     'last_name' => 'Nazwisko',
@@ -41,6 +45,7 @@ return [
     'package' => 'Pakiet',
     'settings' => 'Ustawienia',
     'client' => 'Klient',
+    'emails' => "Emails",
 
     'create_new_package' => 'Stwórz nowy pakiet',
     'edit_package' => 'Edytuj pakiet',
@@ -69,4 +74,16 @@ return [
     'contract_generate' => 'Wygeneruj umowę',
     'contract_title' => 'Umowa na wynajem Fotobudki 360',
     'send_contract' => 'Wyślij umowę',
+
+    'email_subject' => 'Temat',
+    'email_body' => 'Zawartość',
+    'sent_at' => 'Data wysłania',
+    'send' => 'Wyślij',
+    'send_new_email' => 'Wyślij nowy email',
+    'view_event' => 'Szczegóły wydarzenia',
+    'login' => 'Logowanie',
+    'log_in' => 'Zaloguj',
+    'log_out' => 'Wyloguj',
+    'password' => 'Hasło',
+    'remember_me' => 'Zapamietaj mnie'
 ];

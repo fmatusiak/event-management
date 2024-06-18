@@ -131,6 +131,19 @@
                             @enderror
                         </div>
 
+                        <div class="input-group">
+                            <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.discount')}}</span>
+                            <input name="cost[discount]" type="number" value="{{old('cost.discount') ?? 0}}"
+                                   step="any" class="form-control"
+                                   aria-label={{__('translations.discount')}}
+                                   aria-describedby="inputGroup-sizing-default" required>
+
+                            @error('cost.discount')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
                         <div class="form-check form-switch input-group">
                             <input class="form-check-input gmail-sync-input" name="cost[deposit_paid]" type="checkbox"
                                    role="switch" id="deposit_paid" value="{{old('cost.deposit_paid') }}">
@@ -145,17 +158,13 @@
                                    for="gmail-sync">{{__('translations.gmail_sync')}}</label>
                         </div>
 
-                        @if(session('error') || session('exception_message') || session('status'))
+                        @if(session('error') || session('status'))
                             <div class="input-group mb-3">
                                 @if(session('error'))
                                     <div class="alert alert-danger" role="alert">
                                         {{ session('error') }}
-                                    </div>
-                                @endif
-
-                                @if(session('exception_message'))
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ session('exception_message') }}
+                                        <br>
+                                        {{ session('error_message') }}
                                     </div>
                                 @endif
 
@@ -567,7 +576,7 @@
 
         const googleCalendarSyncCheckbox = document.getElementById('google-calendar-sync');
 
-        googleCalendarSyncCheckbox.addEventListener('change',function(){
+        googleCalendarSyncCheckbox.addEventListener('change', function () {
             googleCalendarSyncCheckbox.value = googleCalendarSyncCheckbox.checked ? 1 : 0;
         });
 

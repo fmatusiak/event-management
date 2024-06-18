@@ -12,12 +12,21 @@ class CostCalculatorService implements CostCalculatorInterface
         $totalPackagePrice = $cost->package->price;
         $totalTransportPrice = $cost->getTransportPrice();
         $totalAddonsPrice = $cost->getAddonsPrice();
+        $discount = $cost->getDiscount();
 
-        if ($totalPackagePrice < 0 || $totalTransportPrice < 0 || $totalAddonsPrice < 0) {
-            throw new InvalidArgumentException(__('error_negative_cost'));
+        if ($discount > 0) {
+            throw new InvalidArgumentException(__('messages.error_positive_discount'));
         }
 
-        $totalCost = $totalPackagePrice + $totalTransportPrice + $totalAddonsPrice;
+        if ($totalPackagePrice < 0 || $totalTransportPrice < 0 || $totalAddonsPrice < 0) {
+            throw new InvalidArgumentException(__('messages.error_negative_cost'));
+        }
+
+        $totalCost = $totalPackagePrice + $totalTransportPrice + $totalAddonsPrice + $discount;
+
+        if ($totalCost < 0) {
+            throw new InvalidArgumentException(__('messages.error_negative_total_cost'));
+        }
 
         return (float)sprintf('%.2f', $totalCost);
     }

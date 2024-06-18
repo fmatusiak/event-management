@@ -14,32 +14,6 @@
 </head>
 <body>
 
-<script>
-    function deleteEvent(eventId) {
-        let confirmation = confirm("{{__('messages.confirm_delete')}}");
-
-        if (confirmation) {
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: "/events/" + eventId,
-                type: 'DELETE',
-                success: function (response) {
-                    if (response.error) {
-                        alert(response.error)
-                    } else {
-                        window.location.reload()
-                    }
-                },
-                error: function (xhr) {
-                    alert("{{__('messages.error_delete')}}")
-                }
-            });
-        }
-    }
-</script>
-
 <div class="container-fluid">
     <div class="row">
         @include('components.menu')
@@ -59,7 +33,6 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">{{__('translations.event_name')}}</th>
                         <th scope="col">{{__('translations.client')}}</th>
                         <th scope="col">{{__('translations.delivery_address')}}</th>
                         <th scope="col">{{__('translations.start_time')}}</th>
@@ -74,20 +47,15 @@
                     @foreach($paginator as $item)
                         <tr>
                             <th scope="row">{{ $item->id }}</th>
-                            <td>{{ $item->event_name}}</td>
                             <td>{{ $item->client->first_name}} {{ $item->client->last_name}}</td>
-                            <td>{{ $item->deliveryAddress->street}}
-                                , {{$item->deliveryAddress->postcode}} {{$item->deliveryAddress->city}}</td>
+                            <td>{{ $item->deliveryAddress->getFullAddress()}}</td>
                             <td>{{ Carbon::parse($item->start_time)->format('d-m-Y H:i') }}</td>
                             <td>{{ Carbon::parse($item->end_time)->format(' d-m-Y H:i') }}</td>
                             <td>{{ $item->cost->total_cost}}</td>
                             <td>{{ $item->cost->deposit_paid ? __('translations.yes') : __('translations.no')}}</td>
                             <td>
                                 <a class="btn btn-primary" role="button"
-                                   href="{{ route('events.edit',['eventId' => $item->id]) }}">{{__('translations.edit')}}</a>
-                                <a type="submit" class="btn btn-danger"
-                                   role="button"
-                                   onClick="deleteEvent({{$item->id}})">{{__('translations.delete')}}</a>
+                                   href="{{ route('events.show',['eventId' => $item->id]) }}">{{__('translations.show')}}</a>
                             </td>
                         </tr>
                     @endforeach

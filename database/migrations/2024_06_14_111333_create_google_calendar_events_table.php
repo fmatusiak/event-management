@@ -29,4 +29,6 @@ class CreateGoogleCalendarEventsTable extends Migration
     {
         Schema::dropIfExists('google_calendar_events');
     }
-};
+}
+
+;

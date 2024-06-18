@@ -16,6 +16,7 @@ class CreateCostsTable extends Migration
             $table->unsignedBigInteger('package_id')->index();
             $table->decimal('transport_price')->default(0);
             $table->decimal('addons_price')->default(0);
+            $table->decimal('discount')->default(0);
             $table->decimal('total_cost')->default(0);
             $table->decimal('deposit_cost')->default(0);
             $table->decimal('remaining_cost')->default(0);

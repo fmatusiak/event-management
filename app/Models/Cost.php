@@ -16,6 +16,7 @@ class Cost extends Model
         'package_id',
         'transport_price',
         'addons_price',
+        'discount',
         'deposit_paid'
     ];
 
@@ -37,6 +38,16 @@ class Cost extends Model
     public function setAddonsPrice($value): void
     {
         $this->setAttribute('addons_price', $value);
+    }
+
+    public function getDiscount(): float
+    {
+        return $this->getAttribute('discount');
+    }
+
+    public function setDiscount($value): void
+    {
+        $this->setAttribute('discount', $value);
     }
 
     public function getTotalCost(): float

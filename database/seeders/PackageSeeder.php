@@ -26,12 +26,12 @@ class PackageSeeder extends Seeder
             [
                 'name' => '3 godzinny',
                 'rental_time' => 180,
-                'price' => 1199
+                'price' => 1299
             ],
             [
                 'name' => '4 godzinny',
                 'rental_time' => 240,
-                'price' => 1299
+                'price' => 1499
             ]
         ];
 

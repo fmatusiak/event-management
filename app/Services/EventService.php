@@ -216,6 +216,7 @@ class EventService implements EventServiceInterface
             'package_id' => Arr::get($costData, 'package_id'),
             'transport_price' => Arr::get($costData, 'transport_price', 0),
             'addons_price' => Arr::get($costData, 'addons_price', 0),
+            'discount' => Arr::get($costData, 'discount', 0),
             'deposit_paid' => Arr::get($costData, 'deposit_paid', false),
         ];
 
@@ -253,7 +254,7 @@ class EventService implements EventServiceInterface
      * @throws EventsOverlapException
      * @throws Exception
      */
-    public function updateEvent(int $eventId, array $data)
+    public function updateEvent(int $eventId, array $data): Event
     {
         $this->validateEventRange($data, $eventId);
 

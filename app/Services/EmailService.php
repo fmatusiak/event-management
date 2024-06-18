@@ -3,21 +3,28 @@
 namespace App\Services;
 
 use App\Mail\ContractMail;
-use App\Models\Email;
 use App\Models\Event;
+use App\Repositories\EmailRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use ReflectionException;
 
 class EmailService implements EmailServiceInterface
 {
     private ContractPdfService $contractPdfService;
 
-    public function __construct(ContractPdfService $contractPdfService)
+    private EmailRepository $emailRepository;
+
+    public function __construct(ContractPdfService $contractPdfService, EmailRepository $emailRepository)
     {
         $this->contractPdfService = $contractPdfService;
+        $this->emailRepository = $emailRepository;
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function sendContractEmail(Event $event): void
     {
         try {
@@ -37,11 +44,14 @@ class EmailService implements EmailServiceInterface
 
             $emailContent = $contractMail->render();
 
-            Email::create([
+            $emailData = [
                 'event_id' => $event->id,
                 'to' => $clientEmail,
+                'subject' => $contractMail->subject,
                 'body' => $emailContent,
-            ]);
+            ];
+
+            $this->emailRepository->create($emailData);
 
             $this->contractPdfService->deleteGeneratedPdf($pdfPath);
 

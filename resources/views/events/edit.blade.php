@@ -21,7 +21,7 @@
             <h2>{{__('translations.edit_event')}}</h2>
 
             <div class="back-button">
-                <a href="{{route('events.index')}}" class="btn btn-secondary">
+                <a href="{{route('events.show',['eventId' => $event->id])}}" class="btn btn-secondary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left">
@@ -31,8 +31,6 @@
                         <path d="M5 12l6 -6"/>
                     </svg>
                 </a>
-                <a href="{{route('contracts.generate-contract-for-event',['eventId' => $event->id])}}" target="_blank" class="btn btn-info contract-generate">{{__('translations.contract_generate')}}</a>
-                <a href="{{route('send.contract.email',['eventId' => $event->id])}}" class="btn btn-dark">{{__('translations.send_contract')}}</a>
             </div>
 
             <form method='POST' action="{{ route('events.update',['eventId' => $event->id])}}">
@@ -138,6 +136,19 @@
 
                         <div class="input-group">
                             <span class="input-group-text"
+                                  id="inputGroup-sizing-default">{{__('translations.discount')}}</span>
+                            <input name="cost[discount]" type="number" value="{{$event->cost->discount ?? 0}}"
+                                   step="any" class="form-control"
+                                   aria-label={{__('translations.discount')}}
+                                   aria-describedby="inputGroup-sizing-default" required>
+
+                            @error('cost.discount')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-text"
                                   id="inputGroup-sizing-default">{{__('translations.deposit')}}</span>
                             <input name="cost[deposit_cost]" type="number" value="{{$event->cost->deposit_cost}}"
                                    step="any" class="form-control"
@@ -171,22 +182,19 @@
 
                         <div class="form-check form-switch input-group">
                             <input class="form-check-input gmail-sync-input" name="google-calendar-sync" type="checkbox"
-                                   role="switch" id="google-calendar-sync" {{$event->google_calendar_event_id ? 'checked' : ''}}>
+                                   role="switch"
+                                   id="google-calendar-sync" {{$event->google_calendar_event_id ? 'checked' : ''}}>
                             <label class="form-check-label gmail-sync-label"
                                    for="gmail-sync">{{__('translations.gmail_sync')}}</label>
                         </div>
 
-                        @if(session('error') || session('exception_message') || session('status'))
+                        @if(session('error') || session('status'))
                             <div class="input-group mb-3">
                                 @if(session('error'))
                                     <div class="alert alert-danger" role="alert">
                                         {{ session('error') }}
-                                    </div>
-                                @endif
-
-                                @if(session('exception_message'))
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ session('exception_message') }}
+                                        <br>
+                                        {{ session('error_message') }}
                                     </div>
                                 @endif
 
@@ -600,7 +608,7 @@
 
         const googleCalendarSyncCheckbox = document.getElementById('google-calendar-sync');
 
-        googleCalendarSyncCheckbox.addEventListener('change',function(){
+        googleCalendarSyncCheckbox.addEventListener('change', function () {
             googleCalendarSyncCheckbox.value = googleCalendarSyncCheckbox.checked ? 1 : 0;
         });
 

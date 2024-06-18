@@ -152,12 +152,11 @@
     <table>
         <tr>
             <td>Imię i nazwisko:</td>
-            <td>{{ $event->client->first_name }} {{ $event->client->last_name }}</td>
+            <td>{{ $event->client->getFullName() }}</td>
         </tr>
         <tr>
             <td>Adres zamieszkania:</td>
-            <td>{{ $event->clientAddress->street }}
-                , {{ $event->clientAddress->postcode }} {{ $event->clientAddress->city }}</td>
+            <td>{{ $event->clientAddress->getFullAddress() }}</td>
         </tr>
         <tr>
             <td>PESEL:</td>
@@ -187,8 +186,7 @@
         </tr>
         <tr>
             <td>Adres dostarczenia Fotobudki:</td>
-            <td>{{$event->deliveryAddress->street}}
-                ,{{$event->deliveryAddress->postcode}} {{$event->deliveryAddress->city}}</td>
+            <td>{{$event->deliveryAddress->getFullAddress()}}</td>
         </tr>
         <tr>
             <td>Godzina rozpoczęcia:</td>
@@ -214,7 +212,7 @@
     <table>
         <tr>
             <td>Cena za najem (pakiet):</td>
-            <td>{{ $event->cost->package->price }} zł</td>
+            <td>{{ $event->cost->package->price + $event->cost->discount }} zł</td>
         </tr>
         <tr>
             <td>Koszt transportu (wyliczony zgodnie z cennikiem):</td>
@@ -232,7 +230,9 @@
 
 
     <h2>§5</h2>
-    <p>Rezerwację uważa się za dokonaną po wpłacie przez Najemcę zaliczki w gotówce lub na konto Bank Millennium {{config('photobooth.owner.bank_account')}} w wysokości 30% całości kwoty należności wynikającej z Umowy Wynajmu. Zadatek należy
+    <p>Rezerwację uważa się za dokonaną po wpłacie przez Najemcę zaliczki w gotówce lub na konto Bank
+        Millennium {{config('photobooth.owner.bank_account')}} w wysokości 30% całości kwoty należności wynikającej z
+        Umowy Wynajmu. Zadatek należy
         wpłacić w terminie 3 dni od daty przyjęcia wstępnej rezerwacji. Wpłata zaliczki jest gwarancją rezerwacji
         terminu. Brak wpłaty jest podstawą do anulowania Umowy Wynajmu. Pozostałą część zapłaty za usługę Najemca
         zobowiązuje się uiścić w gotówce najpóźniej w ciągu 7 dni od wykonania usługi.</p>

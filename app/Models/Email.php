@@ -12,7 +12,11 @@ class Email extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'event_id', 'to', 'body'
+        'event_id',
+        'from',
+        'to',
+        'subject',
+        'body'
     ];
 
     public function event(): BelongsTo

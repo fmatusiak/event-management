@@ -7,7 +7,7 @@ use App\Models\Event;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class GoogleCalendarService
+class GoogleCalendarService implements GoogleCalendarInterface
 {
     /**
      * @throws Exception

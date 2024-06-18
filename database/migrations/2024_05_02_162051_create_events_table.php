@@ -24,12 +24,6 @@ class CreateEventsTable extends Migration
             $table->dateTime('end_time');
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('client_id')->references('id')->on('clients');
-            $table->foreign('client_address_id')->references('id')->on('addresses');
-            $table->foreign('delivery_address_id')->references('id')->on('addresses');
-            $table->foreign('cost_id')->references('id')->on('costs');
-            $table->foreign('google_calendar_event_id')->references('id')->on('google_calendar_events');
         });
     }
 

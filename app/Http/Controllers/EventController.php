@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\EventsOverlapException;
+use App\Repositories\EmailRepository;
 use App\Repositories\EventRepository;
 use App\Repositories\PackageRepository;
 use App\Services\EventService;
@@ -30,32 +31,12 @@ class EventController extends Controller
         $this->packageRepository = $packageRepository;
     }
 
-    public function paginate(Request $request): View
-    {
-        try {
-            $filters = $request->input('filters', []);
-            $columns = $request->input('columns', ['*']);
-            $perPage = $request->input('per_page', 15);
-
-            $paginator = $this->eventRepository->paginate($filters, $perPage, $columns);
-
-            return view('events.index', ['paginator' => $paginator]);
-        } catch (Exception $e) {
-            Log::error(__('messages.error_pagination'), [
-                'error_message' => $e->getMessage(),
-                'error' => $e,
-            ]);
-
-            return view('events.index', ['error' => __('messages.error_pagination')]);
-        }
-    }
-
     public function storeEvent(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         try {
             $event = $this->eventService->createEvent($request->all());
 
-            return redirect()->route('events.edit', ['eventId' => $event->id])->with('status', __('messages.created'));
+            return redirect()->route('events.show', ['eventId' => $event->id])->with('status', __('messages.created'));
         } catch (EventsOverlapException) {
             return back()->withInput()->with('error', __('messages.events_overlap'));
         } catch (Exception $e) {
@@ -64,8 +45,12 @@ class EventController extends Controller
                 'error' => $e,
             ]);
 
-            return back()->withInput()->with('error', __('messages.error_create'));
+            return back()->withInput()->with([
+                'error' => __('messages.error_create'),
+                'error_message' => $e->getMessage()
+            ]);
         }
+
     }
 
     public function createEvent(): View
@@ -91,7 +76,10 @@ class EventController extends Controller
                 'error' => $e,
             ]);
 
-            return back()->withInput()->with('error', __('messages.error_update') . $e->getMessage());
+            return back()->withInput()->with([
+                'error', __('messages.error_update'),
+                'error_message' => $e->getMessage()
+            ]);
         }
     }
 
@@ -110,7 +98,49 @@ class EventController extends Controller
                 'error' => $e,
             ]);
 
+            return back()->with([
+                'error', __('messages.error_retrieve'),
+                'error_message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function showEvent(int $eventId, EmailRepository $emailRepository): Factory|Application|\Illuminate\Contracts\View\View|RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    {
+        try {
+            $event = $this->eventRepository->get($eventId);
+            $emails = $emailRepository->paginate(['event_ids' => $eventId]);
+
+            return view('events.show', ['event' => $event, 'emails' => $emails]);
+        } catch (ModelNotFoundException) {
+            return back()->with('error', __('messages.not_found'));
+        } catch (Exception $e) {
+            Log::error(__('messages.error_retrieve'), [
+                'error_message' => $e->getMessage(),
+                'error' => $e,
+            ]);
+
             return back()->with('error', __('messages.error_retrieve'));
+        }
+    }
+
+    public function paginate(Request $request): View
+    {
+        try {
+            $filters = $request->input('filters', []);
+            $columns = $request->input('columns', ['*']);
+            $perPage = $request->input('per_page', 15);
+
+            $paginator = $this->eventRepository->paginate($filters, $perPage, $columns);
+
+            return view('events.index', ['paginator' => $paginator]);
+        } catch (Exception $e) {
+            Log::error(__('messages.error_pagination'), [
+                'error_message' => $e->getMessage(),
+                'error' => $e,
+            ]);
+
+            return view('events.index', ['error' => __('messages.error_pagination')]);
         }
     }
 
@@ -121,14 +151,17 @@ class EventController extends Controller
 
             return response()->json(['status' => __('messages.deleted')]);
         } catch (ModelNotFoundException) {
-            return response()->json(['error' => __('messages.not_found')]);
+            return response()->json(['error' => __('messages.not_found')], 404);
         } catch (Exception $e) {
             Log::error(__('messages.error_delete'), [
                 'error_message' => $e->getMessage(),
                 'error' => $e,
             ]);
 
-            return response()->json(['error' => __('messages.error_delete')]);
+            return response()->json([
+                'error' => __('messages.error_delete'),
+                'error_message' => $e->getMessage()
+            ], 500);
         }
     }
 

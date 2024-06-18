@@ -9,7 +9,7 @@ interface EventServiceInterface
 {
     public function createEvent(array $data): Event;
 
-    public function updateEvent(int $eventId, array $data);
+    public function updateEvent(int $eventId, array $data): Event;
 
     public function validateEventRange(array $data): void;
 

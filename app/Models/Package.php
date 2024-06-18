@@ -16,14 +16,14 @@ class Package extends Model
         'price'
     ];
 
+    public function getFullName(): string
+    {
+        return $this->getName() . ' - ' . $this->getRentalTime() . " ( " . $this->getPrice() . " )";
+    }
+
     public function getName(): string
     {
         return $this->getAttribute('name');
-    }
-
-    public function setName(string $name): void
-    {
-        $this->setAttribute('name', $name);
     }
 
     public function getRentalTime(): int
@@ -31,14 +31,19 @@ class Package extends Model
         return $this->getAttribute('rental_time');
     }
 
-    public function setRentalTime(int $rentalTime): void
-    {
-        $this->setAttribute('rental_time', $rentalTime);
-    }
-
     public function getPrice(): float
     {
         return $this->getAttribute('price');
+    }
+
+    public function setName(string $name): void
+    {
+        $this->setAttribute('name', $name);
+    }
+
+    public function setRentalTime(int $rentalTime): void
+    {
+        $this->setAttribute('rental_time', $rentalTime);
     }
 
     public function setPrice(float $price): void
